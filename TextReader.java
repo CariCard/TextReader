@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+//my main issue was researching to combine the code of hashmap and the word frequency count
+//i read through articles and watched the youtube videos but it didn't help much to have the different codes working together
 
 public class TextReader{
 	
@@ -47,6 +49,33 @@ for (Element para : p) {
 	
 	//this part counts the word frequencies
 	
+	   if (args.length != 2) {
+         System.out.println("Usage: java WordFrequency ");
+         System.exit(1);
+     }
+     
+     try {
+         //-- Supply two files to WordFrequency constructor..
+         WordFrequency wf = new WordFrequency();
+         wf.processFile(new File(args[0]));
+         
+         //-- Get the results.
+         int n = wf.getEntryCount();
+         ArrayList<String>  wrds      = new ArrayList<String>(n);
+         ArrayList<Integer> frequency = new ArrayList<Integer>(n);
+         wf.getWordFrequency(wrds, frequency);
+         
+         //-- Print the results.
+         for (int i=0; i<n; i++) {
+             System.out.println(frequency.get(i) + " " + wrds.get(i));
+         }
+         
+         System.out.println("\nNumber of source words: " + wf.getWordCount());
+         System.out.println("\nNumber of unique words: " + n);
+         
+     } catch (IOException iox) {
+         System.out.println(iox);
+     }
 	
 	
 }
